@@ -42352,10 +42352,6 @@ var Objects = /*#__PURE__*/function () {
     value: function addModel(model, j, i) {
       var _this2 = this;
 
-      if (i != 3) {
-        return;
-      }
-
       if (j == 4) {
         return;
       }
@@ -49028,7 +49024,6 @@ var Content = /*#__PURE__*/function () {
     this.animateNav(0);
     this.on = true;
     this.titleAnimate();
-    this.removeLoader();
   }
 
   _createClass(Content, [{

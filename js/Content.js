@@ -31,7 +31,6 @@ class Content {
         this.animateNav(0)
         this.on = true
         this.titleAnimate()
-        this.removeLoader()
     }
 
     titleAnimate() {

@@ -429,9 +429,6 @@ class Objects {
     }
 
     addModel(model, j, i) {
-        if(i != 3){
-            return
-        }
         if (j == 4) {
             return
         }
