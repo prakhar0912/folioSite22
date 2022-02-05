@@ -49560,7 +49560,7 @@ var animate = function animate() {
 };
 
 animate();
-},{"./js/ThreeInit":"js/ThreeInit.js","./js/Objects":"js/Objects.js","./js/Anime":"js/Anime.js","./js/Content":"js/Content.js"}],"../../.npm/_npx/2702470/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./js/ThreeInit":"js/ThreeInit.js","./js/Objects":"js/Objects.js","./js/Anime":"js/Anime.js","./js/Content":"js/Content.js"}],"../../.npm/_npx/2707852/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -49588,7 +49588,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43631" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35331" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -49764,5 +49764,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../.npm/_npx/2702470/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
+},{}]},{},["../../.npm/_npx/2707852/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
 //# sourceMappingURL=/main.1f19ae8e.js.map
