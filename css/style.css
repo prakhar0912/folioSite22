@@ -497,6 +497,7 @@ h2 {
 .preloader {
     position: absolute;
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     width: 100vw;
     background: #271a2f;
     display: grid;
