@@ -135,12 +135,18 @@ class Anime {
 
     sec1MouseDown(event) {
         // console.log('mouse down')
+        if(!this.eventsStarted){
+            return
+        }
         this.pointer.x = ((this.mobile ? event.touches[0].clientX : event.clientX) / window.innerWidth) * 2 - 1;
         this.pointer.y = - ((this.mobile ? event.touches[0].clientY : event.clientY) / window.innerHeight) * 2 + 1;
         this.rayMouseDown = true
     }
 
     sec1MouseUp(event) {
+        if(!this.eventsStarted){
+            return
+        }
         // console.log('mouse up')
         this.pointer.x = ((this.mobile ? event.touches[0].clientX : event.clientX) / window.innerWidth) * 2 - 1;
         this.pointer.y = - ((this.mobile ? event.touches[0].clientY : event.clientY) / window.innerHeight) * 2 + 1;

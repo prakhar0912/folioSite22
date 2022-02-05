@@ -155,6 +155,7 @@ const content = new Content({
     },
     options: {
         startEvents: () => {
+            // animes.addSection1Listeners()
             animes.eventsStarted = true
         }
     }

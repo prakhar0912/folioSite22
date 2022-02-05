@@ -48227,6 +48227,10 @@ var Anime = /*#__PURE__*/function () {
     key: "sec1MouseDown",
     value: function sec1MouseDown(event) {
       // console.log('mouse down')
+      if (!this.eventsStarted) {
+        return;
+      }
+
       this.pointer.x = (this.mobile ? event.touches[0].clientX : event.clientX) / window.innerWidth * 2 - 1;
       this.pointer.y = -((this.mobile ? event.touches[0].clientY : event.clientY) / window.innerHeight) * 2 + 1;
       this.rayMouseDown = true;
@@ -48234,7 +48238,11 @@ var Anime = /*#__PURE__*/function () {
   }, {
     key: "sec1MouseUp",
     value: function sec1MouseUp(event) {
-      // console.log('mouse up')
+      if (!this.eventsStarted) {
+        return;
+      } // console.log('mouse up')
+
+
       this.pointer.x = (this.mobile ? event.touches[0].clientX : event.clientX) / window.innerWidth * 2 - 1;
       this.pointer.y = -((this.mobile ? event.touches[0].clientY : event.clientY) / window.innerHeight) * 2 + 1;
       this.rayMouseDown = false;
@@ -49081,7 +49089,10 @@ var Content = /*#__PURE__*/function () {
       _gsap.default.to(this.loaderLen, {
         opacity: 0,
         duration: 0.2,
-        ease: "Power4.in"
+        ease: "Power4.in",
+        onComplete: function onComplete() {
+          _this3.options.startEvents();
+        }
       });
 
       _gsap.default.to(this.preLoader, {
@@ -49089,8 +49100,6 @@ var Content = /*#__PURE__*/function () {
         duration: 1,
         onComplete: function onComplete() {
           _this3.preLoader.style.display = 'none';
-
-          _this3.options.startEvents();
         },
         ease: "Power4.in"
       });
@@ -49553,6 +49562,7 @@ var content = new _Content.Content({
   },
   options: {
     startEvents: function startEvents() {
+      // animes.addSection1Listeners()
       animes.eventsStarted = true;
     }
   }

@@ -77,7 +77,10 @@ class Content {
             {
                 opacity: 0,
                 duration: 0.2,
-                ease: "Power4.in"
+                ease: "Power4.in",
+                onComplete: () => {
+                    this.options.startEvents()
+                }
             }
         )
         gsap.to(this.preLoader,
@@ -86,7 +89,6 @@ class Content {
                 duration: 1,
                 onComplete: () => {
                     this.preLoader.style.display = 'none'
-                    this.options.startEvents()
                 },
                 ease: "Power4.in"
             }
