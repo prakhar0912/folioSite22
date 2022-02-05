@@ -1,14 +1,14 @@
 import * as THREE from "three";
 import { Reflector } from './Reflector'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { ReflectorMaterial } from "./spec/ReflectorMaterial";
-import { Floor } from './Floor'
+// import { ReflectorMaterial } from "./spec/ReflectorMaterial";
+// import { Floor } from './Floor'
 import model1 from '../assets/person1.glb'
-import model2 from '../assets/person2.glb'
-import model3 from '../assets/person3.glb'
-import model4 from '../assets/person4.glb'
-import model5 from '../assets/person5.glb'
-import model6 from '../assets/person6.glb'
+import model2 from '../assets/person2(rot).glb'
+import model3 from '../assets/person3(rot).glb'
+import model4 from '../assets/person4(rot2).glb'
+import model5 from '../assets/person5(rot).glb'
+import model6 from '../assets/person7(rot).glb'
 
 
 
@@ -429,6 +429,9 @@ class Objects {
     }
 
     addModel(model, j, i) {
+        if(i != 3){
+            return
+        }
         if (j == 4) {
             return
         }
@@ -477,9 +480,9 @@ class Objects {
             }
         }
         else if (i == 3) {
-            model.rotation.y = -4 * Math.PI / 4
-            if (j >= 3) {
-                model.rotation.y = (-5 * Math.PI / 4)
+            model.rotation.y = -3.5 * Math.PI / 4
+            if (j >= 4) {
+                model.rotation.y = (-4 * Math.PI / 4)
             }
         }
         if (this.mobile) {
@@ -487,7 +490,7 @@ class Objects {
                 model.position.set(0.7 * (this.position[j][i][0] - 2), this.position[j][i][1] * 1, 0.6 * (this.position[j][i][2] - 1.8))
             }
             else if (i == 3) {
-                model.position.set(0.9 * (this.position[j][i][0] - 2), this.position[j][i][1] * 1, 0.7 * (this.position[j][i][2] - 1))
+                model.position.set(0.9 * (this.position[j][i][0] - 1.5), this.position[j][i][1] * 1, 0.7 * (this.position[j][i][2] - 1))
             }
             else {
                 model.position.set(0.7 * (this.position[j][i][0] - 2), this.position[j][i][1] * 1, 0.7 * (this.position[j][i][2] - 2))
