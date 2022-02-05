@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./SpeziaSerifTrial-MediumC.woff":[["SpeziaSerifTrial-MediumC.e0d654fd.woff","fonts/SpeziaSerifTrial-MediumC.woff"],"fonts/SpeziaSerifTrial-MediumC.woff"],"./SpeziaMonoTrial-SemiBold.woff":[["SpeziaMonoTrial-SemiBold.455caf5d.woff","fonts/SpeziaMonoTrial-SemiBold.woff"],"fonts/SpeziaMonoTrial-SemiBold.woff"],"./Manrope-Regular.woff2":[["Manrope-Regular.19d6cf5f.woff2","fonts/Manrope-Regular.woff2"],"fonts/Manrope-Regular.woff2"],"./Manrope-Light.woff2":[["Manrope-Light.a30e7ff1.woff2","fonts/Manrope-Light.woff2"],"fonts/Manrope-Light.woff2"],"./Manrope-Medium.woff2":[["Manrope-Medium.8e62c17d.woff2","fonts/Manrope-Medium.woff2"],"fonts/Manrope-Medium.woff2"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../.npm/_npx/2707852/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./SpeziaSerifTrial-MediumC.woff":[["SpeziaSerifTrial-MediumC.e0d654fd.woff","fonts/SpeziaSerifTrial-MediumC.woff"],"fonts/SpeziaSerifTrial-MediumC.woff"],"./SpeziaMonoTrial-SemiBold.woff":[["SpeziaMonoTrial-SemiBold.455caf5d.woff","fonts/SpeziaMonoTrial-SemiBold.woff"],"fonts/SpeziaMonoTrial-SemiBold.woff"],"./Manrope-Regular.woff2":[["Manrope-Regular.19d6cf5f.woff2","fonts/Manrope-Regular.woff2"],"fonts/Manrope-Regular.woff2"],"./Manrope-Light.woff2":[["Manrope-Light.a30e7ff1.woff2","fonts/Manrope-Light.woff2"],"fonts/Manrope-Light.woff2"],"./Manrope-Medium.woff2":[["Manrope-Medium.8e62c17d.woff2","fonts/Manrope-Medium.woff2"],"fonts/Manrope-Medium.woff2"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../.npm/_npx/2708935/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35331" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37001" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -393,5 +393,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../.npm/_npx/2707852/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+},{}]},{},["../../.npm/_npx/2708935/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
 //# sourceMappingURL=/fonts.b13d561a.js.map
