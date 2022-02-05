@@ -21,6 +21,7 @@ class Anime {
         this.mainLight = mainLight
         this.mobileFloorMesh = mobileFloorMesh
         this.circularMesh = circularMesh
+        this.eventsStarted = false
         this.rotCirc = document.querySelector('.rot-circ-outer')
         this.rotCircPi = (Math.PI/4)
         if (!this.mobile) {
@@ -779,7 +780,7 @@ class Anime {
         if (!this.mobile && (this.currentSection == 0 && !this.sectionMap[0].start)) {
             this.mouseCameraMovement()
         }
-        if ((this.currentSection == 0 && !this.sectionMap[0].start)) {
+        if ((this.currentSection == 0 && !this.sectionMap[0].start) && this.eventsStarted) {
             if(this.mobile){
                 if(this.rayMouseDown){
                     this.rayFuncMobile()

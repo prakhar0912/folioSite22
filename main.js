@@ -152,6 +152,11 @@ const content = new Content({
     mobile,
     goToSection: (from, to) => {
         animes.goToSection(from, to)
+    },
+    options: {
+        startEvents: () => {
+            animes.eventsStarted = true
+        }
     }
 })
 

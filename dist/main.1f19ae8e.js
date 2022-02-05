@@ -48120,6 +48120,7 @@ var Anime = /*#__PURE__*/function () {
     this.mainLight = mainLight;
     this.mobileFloorMesh = mobileFloorMesh;
     this.circularMesh = circularMesh;
+    this.eventsStarted = false;
     this.rotCirc = document.querySelector('.rot-circ-outer');
     this.rotCircPi = Math.PI / 4;
 
@@ -48927,7 +48928,7 @@ var Anime = /*#__PURE__*/function () {
         this.mouseCameraMovement();
       }
 
-      if (this.currentSection == 0 && !this.sectionMap[0].start) {
+      if (this.currentSection == 0 && !this.sectionMap[0].start && this.eventsStarted) {
         if (this.mobile) {
           if (this.rayMouseDown) {
             this.rayFuncMobile();
@@ -48994,7 +48995,8 @@ var Content = /*#__PURE__*/function () {
   function Content(_ref) {
     var goToSection = _ref.goToSection,
         camera = _ref.camera,
-        mobile = _ref.mobile;
+        mobile = _ref.mobile,
+        options = _ref.options;
 
     _classCallCheck(this, Content);
 
@@ -49005,6 +49007,7 @@ var Content = /*#__PURE__*/function () {
     this.socialsBtns = document.querySelectorAll('.socials > div');
     this.mobile = mobile;
     this.camera = camera;
+    this.options = options;
     this.hintContainer = this.mobile ? document.querySelector('.hint-mobile > p') : document.querySelector('.hint');
     this.mainPercent = 80;
 
@@ -49086,6 +49089,8 @@ var Content = /*#__PURE__*/function () {
         duration: 1,
         onComplete: function onComplete() {
           _this3.preLoader.style.display = 'none';
+
+          _this3.options.startEvents();
         },
         ease: "Power4.in"
       });
@@ -49545,6 +49550,11 @@ var content = new _Content.Content({
   mobile: mobile,
   goToSection: function goToSection(from, to) {
     animes.goToSection(from, to);
+  },
+  options: {
+    startEvents: function startEvents() {
+      animes.eventsStarted = true;
+    }
   }
 }); // const stats = Stats()
 // document.body.appendChild(stats.domElement)

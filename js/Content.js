@@ -6,7 +6,7 @@ import gsap from "gsap"
 
 
 class Content {
-    constructor({ goToSection, camera, mobile }) {
+    constructor({ goToSection, camera, mobile, options }) {
         this.masterContainer = document.querySelector(".container")
         this.sections = document.querySelectorAll(".content > div")
         this.projectContainers = document.querySelectorAll(".second > .proj")
@@ -14,6 +14,7 @@ class Content {
         this.socialsBtns = document.querySelectorAll('.socials > div')
         this.mobile = mobile
         this.camera = camera
+        this.options = options
         this.hintContainer = this.mobile ? document.querySelector('.hint-mobile > p') : document.querySelector('.hint')
         this.mainPercent = 80
         if (this.mobile) {
@@ -85,6 +86,7 @@ class Content {
                 duration: 1,
                 onComplete: () => {
                     this.preLoader.style.display = 'none'
+                    this.options.startEvents()
                 },
                 ease: "Power4.in"
             }

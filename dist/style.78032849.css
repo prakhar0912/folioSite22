@@ -800,6 +800,10 @@ h2 {
         margin: 0 auto;
     }
 
+    .preloader{
+        height: calc(var(--vh, 1vh) * 100);
+    }
+
 }
 
 @media(max-width: 416px) {
