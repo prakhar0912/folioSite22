@@ -38457,13 +38457,15 @@ var ThreeInit = /*#__PURE__*/function () {
     this.renderer.physicallyCorrectLights = true;
     this.renderer.toneMapping = THREE.NoToneMapping;
     this.renderer.toneMappingExposure = 1;
+    this.currentHeight = 0;
+    this.currentWidth = 0;
 
     if (this.shadows) {
       this.renderer.shadowMap.enabled = true;
     }
 
     this.container.appendChild(this.renderer.domElement);
-    window.addEventListener("resize", this.resize.bind(this));
+    window.addEventListener("resize", this.vhResizeTimer.bind(this), true);
 
     if (orbital) {
       this.addOrbitalCam();
@@ -38484,6 +38486,38 @@ var ThreeInit = /*#__PURE__*/function () {
   }
 
   _createClass(ThreeInit, [{
+    key: "vhResizeFunc",
+    value: function vhResizeFunc() {
+      var newHeight = this.container.clientHeight;
+      var newWidth = this.container.clientWidth;
+
+      if (newHeight == this.currentHeight && newWidth == this.currentWidth) {
+        console.log('bailed', newHeight, newWidth);
+        return;
+      }
+
+      console.log('resize', newHeight, newWidth);
+      this.resize(newHeight, newWidth);
+      this.currentHeight = newHeight;
+      this.currentWidth = newWidth;
+    }
+  }, {
+    key: "vhResizeTimer",
+    value: function vhResizeTimer() {
+      for (var i = 0; i < 10; i++) {
+        setTimeout(this.vhResizeFunc.bind(this), i * 100);
+      }
+    }
+  }, {
+    key: "resize",
+    value: function resize(newHeight, newWidth) {
+      this.renderer.setSize(newWidth, newHeight);
+      this.renderer.setPixelRatio(this.mobile ? this.mobilePixelRatio : window.devicePixelRatio);
+      this.aspect = newWidth / newHeight;
+      this.camera.aspect = this.aspect;
+      this.camera.updateProjectionMatrix();
+    }
+  }, {
     key: "addGrain",
     value: function addGrain() {
       this.composer = new _EffectComposer.EffectComposer(this.renderer);
@@ -38577,15 +38611,6 @@ var ThreeInit = /*#__PURE__*/function () {
       this.scene.add(gridHelper);
       var axesHelper = new THREE.AxesHelper(5);
       this.scene.add(axesHelper);
-    }
-  }, {
-    key: "resize",
-    value: function resize() {
-      this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-      this.renderer.setPixelRatio(this.mobile ? this.mobilePixelRatio : window.devicePixelRatio);
-      this.aspect = this.container.clientWidth / this.container.clientHeight;
-      this.camera.aspect = this.aspect;
-      this.camera.updateProjectionMatrix();
     }
   }, {
     key: "animate",
@@ -49016,7 +49041,9 @@ var Content = /*#__PURE__*/function () {
     this.mobile = mobile;
     this.camera = camera;
     this.options = options;
-    this.hintContainer = this.mobile ? document.querySelector('.hint-mobile > p') : document.querySelector('.hint');
+    this.currentHeight = 0;
+    this.currentWidth = window.innerWidth;
+    this.hintContainer = window.innerWidth < 900 ? document.querySelector('.hint-mobile > .hint-mobile-content') : document.querySelector('.hint');
     this.mainPercent = 80;
 
     if (this.mobile) {
@@ -49035,6 +49062,8 @@ var Content = /*#__PURE__*/function () {
     this.animateNav(0);
     this.on = true;
     this.titleAnimate();
+    this.clueActive = true;
+    this.clueAnimation();
   }
 
   _createClass(Content, [{
@@ -49210,6 +49239,7 @@ var Content = /*#__PURE__*/function () {
   }, {
     key: "showHint",
     value: function showHint() {
+      // this.hintContainer.parentElement.style.display = 'block'
       _gsap.default.to(this.hintContainer, {
         opacity: 1
       });
@@ -49239,7 +49269,9 @@ var Content = /*#__PURE__*/function () {
 
       _gsap.default.to(this.hintContainer, {
         scale: 1,
-        opacity: 0
+        opacity: 0,
+        onComplete: function onComplete() {// this.hintContainer.parentElement.style.display = 'none'
+        }
       });
     }
   }, {
@@ -49326,6 +49358,27 @@ var Content = /*#__PURE__*/function () {
       this.animateNavAnime.play(0);
     }
   }, {
+    key: "vhResizeFunc",
+    value: function vhResizeFunc() {
+      var nice = window.innerHeight * 0.01;
+
+      if (nice == this.currentHeight) {
+        // console.log('bailed', nice)
+        return;
+      } // console.log('resize', nice)
+
+
+      document.documentElement.style.setProperty('--vh', "".concat(nice, "px"));
+      this.currentHeight = nice;
+    }
+  }, {
+    key: "vhResizeTimer",
+    value: function vhResizeTimer() {
+      for (var i = 0; i < 10; i++) {
+        setTimeout(this.vhResizeFunc, i * 100);
+      }
+    }
+  }, {
     key: "resizeFunc",
     value: function resizeFunc() {
       if (this.mobile) {
@@ -49338,6 +49391,8 @@ var Content = /*#__PURE__*/function () {
           this.mainPercent = 40;
           this.animateNav(this.currentSection);
         }
+
+        this.vhResizeTimer();
       } else {
         if (window.innerWidth < 1450 && this.mainPercent != 70) {
           this.mainPercent = 70;
@@ -49385,19 +49440,46 @@ var Content = /*#__PURE__*/function () {
       this.moveToSection(i);
     }
   }, {
+    key: "clueAnimation",
+    value: function clueAnimation() {
+      var _this7 = this;
+
+      this.clueTimer = setInterval(function () {
+        _this7.lineAnimeStart(document.querySelector('.first > div:nth-of-type(2) > .next'), 'f');
+      }, 1500);
+    }
+  }, {
+    key: "deactivateClue",
+    value: function deactivateClue() {
+      if (this.clueTimer) {
+        clearInterval(this.clueTimer);
+        this.clueActive = false;
+      }
+    }
+  }, {
     key: "addEventListeners",
     value: function addEventListeners() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.nextBtns = document.querySelectorAll('.next');
       this.nextBtns.forEach(function (el, i) {
         el.addEventListener('click', function () {
-          _this7.navClick(1);
+          if (i == 0) {
+            if (_this8.clueActive) {
+              _this8.deactivateClue();
+            }
+          }
+
+          _this8.navClick(1);
         });
       });
       this.navBtns.forEach(function (el, i) {
         el.addEventListener('click', function () {
-          _this7.navClick(i);
+          if (_this8.clueActive) {
+            _this8.deactivateClue();
+          }
+
+          _this8.navClick(i);
         });
       });
       window.addEventListener('resize', this.resizeFunc.bind(this));
@@ -49405,10 +49487,10 @@ var Content = /*#__PURE__*/function () {
       if (!this.mobile) {
         this.socialsBtns.forEach(function (e) {
           e.addEventListener('mouseenter', function () {
-            _this7.socialOpen(e);
+            _this8.socialOpen(e);
           });
           e.addEventListener('mouseleave', function () {
-            _this7.socialClose(e);
+            _this8.socialClose(e);
           });
         });
       }
@@ -49451,10 +49533,6 @@ var mobileDevice = mobileAndTabletCheck();
 if (mobileDevice) {
   var nice = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', "".concat(nice, "px"));
-  window.addEventListener("resize", function () {
-    nice = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', "".concat(nice, "px"));
-  }, false);
 }
 
 function iOS() {
@@ -49580,7 +49658,7 @@ var animate = function animate() {
 };
 
 animate();
-},{"./js/ThreeInit":"js/ThreeInit.js","./js/Objects":"js/Objects.js","./js/Anime":"js/Anime.js","./js/Content":"js/Content.js"}],"../../.npm/_npx/2711643/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./js/ThreeInit":"js/ThreeInit.js","./js/Objects":"js/Objects.js","./js/Anime":"js/Anime.js","./js/Content":"js/Content.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -49608,7 +49686,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36751" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41425" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -49784,5 +49862,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../.npm/_npx/2711643/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
+},{}]},{},["../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.js"], null)
 //# sourceMappingURL=/main.1f19ae8e.js.map

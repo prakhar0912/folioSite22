@@ -54,12 +54,15 @@ class ThreeInit {
     this.renderer.toneMapping = THREE.NoToneMapping
     this.renderer.toneMappingExposure = 1
 
+    this.currentHeight = 0
+    this.currentWidth = 0
+
 
     if (this.shadows) {
       this.renderer.shadowMap.enabled = true;
     }
     this.container.appendChild(this.renderer.domElement);
-    window.addEventListener("resize", this.resize.bind(this));
+    window.addEventListener("resize", this.vhResizeTimer.bind(this), true);
     if (orbital) {
       this.addOrbitalCam()
     }
@@ -79,6 +82,32 @@ class ThreeInit {
     // this.addGridHelper()
   }
 
+  vhResizeFunc() {
+    let newHeight = this.container.clientHeight
+    let newWidth = this.container.clientWidth
+    if (newHeight == this.currentHeight && newWidth == this.currentWidth) {
+      console.log('bailed', newHeight, newWidth)
+      return
+    }
+    console.log('resize', newHeight, newWidth)
+    this.resize(newHeight, newWidth)
+    this.currentHeight = newHeight
+    this.currentWidth = newWidth
+  }
+
+  vhResizeTimer() {
+    for (let i = 0; i < 10; i++) {
+      setTimeout(this.vhResizeFunc.bind(this), i * 100)
+    }
+  }
+
+  resize(newHeight, newWidth) {
+    this.renderer.setSize(newWidth, newHeight);
+    this.renderer.setPixelRatio(this.mobile ? this.mobilePixelRatio : window.devicePixelRatio)
+    this.aspect = newWidth / newHeight
+    this.camera.aspect = this.aspect
+    this.camera.updateProjectionMatrix();
+  }
 
   addGrain() {
     this.composer = new EffectComposer(this.renderer);
@@ -169,13 +198,6 @@ class ThreeInit {
     this.scene.add(axesHelper);
   }
 
-  resize() {
-    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-    this.renderer.setPixelRatio(this.mobile ? this.mobilePixelRatio : window.devicePixelRatio)
-    this.aspect = this.container.clientWidth / this.container.clientHeight
-    this.camera.aspect = this.aspect
-    this.camera.updateProjectionMatrix();
-  }
 
   animate() {
     if (this.controls) {

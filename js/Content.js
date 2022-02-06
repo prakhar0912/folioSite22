@@ -15,7 +15,9 @@ class Content {
         this.mobile = mobile
         this.camera = camera
         this.options = options
-        this.hintContainer = this.mobile ? document.querySelector('.hint-mobile > p') : document.querySelector('.hint')
+        this.currentHeight = 0
+        this.currentWidth = window.innerWidth
+        this.hintContainer = window.innerWidth < 900 ? document.querySelector('.hint-mobile > .hint-mobile-content') : document.querySelector('.hint')
         this.mainPercent = 80
         if (this.mobile) {
             this.mainPercent = 50
@@ -32,6 +34,8 @@ class Content {
         this.animateNav(0)
         this.on = true
         this.titleAnimate()
+        this.clueActive = true
+        this.clueAnimation()
     }
 
     titleAnimate() {
@@ -197,6 +201,7 @@ class Content {
     }
 
     showHint() {
+        // this.hintContainer.parentElement.style.display = 'block'
         gsap.to(this.hintContainer,
             {
                 opacity: 1
@@ -227,7 +232,10 @@ class Content {
         gsap.to(this.hintContainer,
             {
                 scale: 1,
-                opacity: 0
+                opacity: 0,
+                onComplete: () => {
+                    // this.hintContainer.parentElement.style.display = 'none'
+                }
             }
         )
     }
@@ -321,6 +329,23 @@ class Content {
         this.animateNavAnime.play(0)
     }
 
+    vhResizeFunc() {
+        let nice = window.innerHeight * 0.01;
+        if (nice == this.currentHeight) {
+            // console.log('bailed', nice)
+            return
+        }
+        // console.log('resize', nice)
+        document.documentElement.style.setProperty('--vh', `${nice}px`);
+        this.currentHeight = nice
+    }
+
+    vhResizeTimer() {
+        for (let i = 0; i < 10; i++) {
+            setTimeout(this.vhResizeFunc, i * 100)
+        }
+    }
+
     resizeFunc() {
         if (this.mobile) {
             if (this.mainPercent != 50 && window.innerWidth > 416) {
@@ -331,6 +356,7 @@ class Content {
                 this.mainPercent = 40
                 this.animateNav(this.currentSection)
             }
+            this.vhResizeTimer()
         }
         else {
             if (window.innerWidth < 1450 && this.mainPercent != 70) {
@@ -367,17 +393,38 @@ class Content {
         this.moveToSection(i)
     }
 
+    clueAnimation() {
+        this.clueTimer = setInterval(() => {
+            this.lineAnimeStart(document.querySelector('.first > div:nth-of-type(2) > .next'), 'f')
+        }, 1500)
+    }
+
+    deactivateClue() {
+        if (this.clueTimer) {
+            clearInterval(this.clueTimer)
+            this.clueActive = false
+        }
+    }
+
 
     addEventListeners() {
         this.nextBtns = document.querySelectorAll('.next')
         this.nextBtns.forEach((el, i) => {
             el.addEventListener('click', () => {
+                if (i == 0) {
+                    if (this.clueActive) {
+                        this.deactivateClue()
+                    }
+                }
                 this.navClick(1)
             })
         })
 
         this.navBtns.forEach((el, i) => {
             el.addEventListener('click', () => {
+                if (this.clueActive) {
+                    this.deactivateClue()
+                }
                 this.navClick(i)
             })
         })

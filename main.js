@@ -22,10 +22,6 @@ let mobileDevice = mobileAndTabletCheck()
 if (mobileDevice) {
     let nice = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${nice}px`);
-    window.addEventListener("resize", function () {
-        nice = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${nice}px`);
-    }, false);
 }
 
 function iOS() {
