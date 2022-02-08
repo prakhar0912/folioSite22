@@ -45,7 +45,6 @@ function iOS() {
 
 let mobile = mobileDevice
 
-
 let orbital = false
 let shadows = true
 let noFloor = false

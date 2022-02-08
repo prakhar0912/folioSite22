@@ -49064,6 +49064,12 @@ var Content = /*#__PURE__*/function () {
     this.titleAnimate();
     this.clueActive = true;
     this.clueAnimation();
+
+    if (this.mobile) {
+      _gsap.default.set('.third.section', {
+        gridTemplateColumns: "0% 100%"
+      });
+    }
   }
 
   _createClass(Content, [{
@@ -49686,7 +49692,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41425" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43069" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -36,6 +36,9 @@ class Content {
         this.titleAnimate()
         this.clueActive = true
         this.clueAnimation()
+        if(this.mobile){
+            gsap.set('.third.section', {gridTemplateColumns: "0% 100%"})
+        }
     }
 
     titleAnimate() {
