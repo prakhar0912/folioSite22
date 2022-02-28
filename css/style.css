@@ -731,7 +731,7 @@ h2 {
         word-spacing: 0.2em;
     } */
 
-    .first>div:nth-of-type(2)>.idk>h2 {
+    .first>div:nth-of-type(2)>.idk> div > h2 {
         font-size: 1.1rem;
     }
 
