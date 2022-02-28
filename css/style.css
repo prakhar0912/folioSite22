@@ -733,6 +733,7 @@ h2 {
 
     .first>div:nth-of-type(2)>.idk> div > h2 {
         font-size: 1.1rem;
+        letter-spacing: 0.05rem;
     }
 
     h2 {
